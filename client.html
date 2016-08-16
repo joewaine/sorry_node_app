@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<title>jsonp test</title>
+
+    </head>
+    <body>
+
+
+
+
+<input class="mutterance">
+
+        <div id="select_div"><a href="#" id="select_link">Send</a></div>  
+
+		<script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>		
+		<script type="text/javascript">
+            $(function(){				
+                $('#select_link').click(function(e){
+                    e.preventDefault();
+                    // console.log('select_link clicked');
+                    // alert($('.mutterance').val());
+
+
+$('body').append('<a href="http://'+ $('.mutterance').val() +'.localhost:8000/">go look</a>')
+
+                     /*$.ajax({
+                        dataType: 'jsonp',
+                        data: "data=yeah",						
+                        jsonp: 'callback',
+                        url: 'http://localhost:3000/endpoint?callback=?',						
+                        success: function(data) {
+                            console.log('success');
+                            console.log(JSON.stringify(data));
+                        }
+                    });*/
+					var data = {};
+					data.title = $('.mutterance').val();
+					data.message = $('.mutterance').val();
+					var strung = JSON.stringify(data);
+					$.ajax({
+						type: 'POST',
+						data: strung,
+				        contentType: 'application/json',
+                        url: 'http://localhost:8000/',						
+                        success: function(data) {
+                            console.log(strung);
+                        }
+                    });
+					/*$.ajax('http://localhost:3000/endpoint', {
+					        type: 'POST',
+					        data: JSON.stringify(data),
+					        contentType: 'application/json',
+					        success: function() { console.log('success');},
+					        error  : function() { console.log('error');}
+					});*/
+                });				
+            });
+        </script>
+
+
+    </body>
+</html>
